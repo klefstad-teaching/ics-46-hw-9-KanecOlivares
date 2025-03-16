@@ -61,8 +61,8 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
     
     while (!ladder_queue.empty()){
         vector<string> ladder = ladder_queue.front();
-        string last_word = ladder.back();
         ladder_queue.pop();
+        string last_word = ladder.back();
 
         for (const string& word : word_list ) {
             if (is_adjacent(last_word, word) && 
@@ -75,7 +75,6 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
                     ladder_queue.push(new_ladder);
             }
         }
-       
     }
     return {};
 }
@@ -83,8 +82,9 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 void load_words(set<string> & word_list, const string& file_name){
     ifstream file(file_name);
     string word;
-    while (file >> word)
+    while (file >> word){
         word_list.insert(word);
+    }
     file.close();
 }
 
