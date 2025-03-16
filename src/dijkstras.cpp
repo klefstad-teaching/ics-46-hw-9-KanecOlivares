@@ -1,3 +1,5 @@
+#include "dijkstras.h"
+
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous){
     int graph_sz = G.numVertices;
     vector<int> dist(graph_sz, INF);
