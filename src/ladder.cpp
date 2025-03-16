@@ -77,13 +77,53 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 }
 
 void load_words(set<string> & word_list, const string& file_name){
-
+    ifstream file(file_name);
+    string word;
+    while (file >> word)
+        word_list.insert(word);
+    file.close();
 }
 
 void print_word_ladder(const vector<string>& ladder){
-
+    if (ladder.empty()){
+        cout << "No word ladder found." << endl;
+    }
+    cout << "Word ladder found: ";
+    for (int i = 0; i < ladder.size(); ++i){
+        cout << ladder[i] << " ";
+    }
+    cout << endl;
 }
 
 void verify_word_ladder(){
+    set<string> word_list;
+    load_words(word_list, "../src/words.txt");
 
+    string begin_word, end_word;
+    cout << "Enter start word: ";
+    cin >> begin_word;
+    cout << "Enter end word: ";
+    cin >> end_word;
+    vector<string> ladder = generate_word_ladder(begin_word, end_word, word_list);
+    if (ladder.empty()){
+        cout << "No valid word ladder found.\n"
+    }
+    print_word_ladder(ladder);
+
+    int ladder_sz = ladder.size();
+    for (int i = 1; i < ladder_sz; ++i){
+        if (word_list.find(ladder[i] == word_list.end())){
+            error("", ladder[i], "Not in the dictionary");
+            return;
+        }
+    }
+    for (int i = 1; i < ladder_sz; ++i){
+        if (!is_adjacent(ladder[i-1], ladder[i])){
+            error(ladder[i-1], ladder[i], "Not a valid path found");
+            return; 
+        }
+    }
+
+    cout << "Word ladder verfied" << endl;
+    
 }
