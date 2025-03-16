@@ -106,11 +106,13 @@ void verify_word_ladder(){
     cin >> end_word;
     vector<string> ladder = generate_word_ladder(begin_word, end_word, word_list);
     if (ladder.empty()){
-        cout << "No valid word ladder found.\n"
+        cout << "No valid word ladder found." << endl; 
+        return;
     }
     print_word_ladder(ladder);
 
     int ladder_sz = ladder.size();
+    
     for (int i = 1; i < ladder_sz; ++i){
         if (word_list.find(ladder[i] == word_list.end())){
             error("", ladder[i], "Not in the dictionary");
@@ -125,5 +127,5 @@ void verify_word_ladder(){
     }
 
     cout << "Word ladder verfied" << endl;
-    
+
 }
