@@ -11,19 +11,23 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
     // check if they are either same size or only d difference
     str1_sz = str1.size();
     str2_sz = str2.size();
+
     if (abs(str1_sz - str2_sz) > d)
         return false;
+
     int diff_cnt = 0;
+
     int i = 0;
     int j = 0;
-    while (i < len1 && j < len2){
+
+    while (i < str1_sz && j < str2_sz){
         if (str1[i] != str2[j]){
             ++diff_cnt;
             if (diff_cnt > d)
                 return false;
-            if (len1 > len2)
+            if (str1_sz > str2_sz)
                 ++i;
-            else if (len1 < len2)
+            else if (str1_sz < str2_sz)
                 ++j;
             else{
                 ++j;
@@ -35,7 +39,10 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
             ++i;
         }
     }
-    if (i < len1 || j < len2)
+    if (i < str1_sz || j < str2_sz)
+        ++diff_cnt;
+
+    return diff_cnt == d;
 }
 
 bool is_adjacent(const string& word1, const string& word2){
@@ -43,6 +50,29 @@ bool is_adjacent(const string& word1, const string& word2){
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list){
+    queue<vector<string>> ladder_queue;
+    set<string> visited;
+    ladder_queue.push({begin_word});
+    visited.insert(begin_word);
+    
+    while (!ladder_queue.empty()){
+        vector<string> ladder = ladder_queue.front();
+        string last_word = ladder.back();
+        ladder_queue.pop();
+
+        for (const string& word : word_list ) {
+            if (is_adjacent(last_word, word) && 
+                visited.find(word) == visited.end()){
+                    visited.insert(word);
+                    vector<string> new_ladder = ladder;
+                    new_ladder.push_back(word);
+                    if (word == end_word)
+                        return new_ladder;
+                    ladder_queue.push(new_ladder);
+            }
+        }
+        return {};
+    }
 
 }
 
