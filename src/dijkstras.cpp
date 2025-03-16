@@ -1,5 +1,4 @@
 #include "dijkstras.h"
-
 vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& previous){
     int graph_sz = G.numVertices;
     vector<int> dist(graph_sz, INF);
@@ -34,7 +33,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
 }
 
 vector<int> extract_shortest_path(const vector<int>& distances, const vector<int>& previous, int destination){
-    vector<int> resuslt;
+    vector<int> result;
     if (distances[destination] == INF)
         return result;
     for (int at = destination; at != -1; at = previous[at])
@@ -45,6 +44,6 @@ vector<int> extract_shortest_path(const vector<int>& distances, const vector<int
 
 void print_path(const vector<int>& v, int total){
     int vector_sz = v.size();
-    for (int i < 0; i < vector_sz && i < total; ++i)
-        cout << vector[i] << " "; 
+    for (int i = 0; i < vector_sz && i < total; ++i)
+        cout << v[i] << " "; 
 }

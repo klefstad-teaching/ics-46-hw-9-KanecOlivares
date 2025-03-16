@@ -9,8 +9,8 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
     if (str1 == str2)
         return true; 
     // check if they are either same size or only d difference
-    str1_sz = str1.size();
-    str2_sz = str2.size();
+    int str1_sz = str1.size();
+    int str2_sz = str2.size();
 
     if (abs(str1_sz - str2_sz) > d)
         return false;
@@ -71,9 +71,9 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
                     ladder_queue.push(new_ladder);
             }
         }
-        return {};
+       
     }
-
+    return {};
 }
 
 void load_words(set<string> & word_list, const string& file_name){
@@ -112,9 +112,9 @@ void verify_word_ladder(){
     print_word_ladder(ladder);
 
     int ladder_sz = ladder.size();
-    
+
     for (int i = 1; i < ladder_sz; ++i){
-        if (word_list.find(ladder[i] == word_list.end())){
+        if (word_list.find(ladder[i]) == word_list.end()){
             error("", ladder[i], "Not in the dictionary");
             return;
         }
